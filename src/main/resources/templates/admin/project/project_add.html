@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<!-- start myModal -->
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
+    <h4 class="modal-title" >
+        添加
+    </h4>
+</div>
+<div class="modal-body form-horizontal" id="myModalBody">
+    <form id="addForm" class="form-horizontal">
+        <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">项目名称</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="name" name="name" placeholder="name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="url" class="col-sm-2 control-label">地址</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="url" name="url" placeholder="url">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="tech" class="col-sm-2 control-label">技术点</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="tech" name="tech" placeholder="tech">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="desp" class="col-sm-2 control-label">描述</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" id="desp" name="desp" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default hide">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button  type="button" class="btn btn-success" id="savebtn">保存</button>
+    <button type="button" class="btn btn-primary" data-dismiss="modal" >取消</button>
+</div>
+<!-- end myModal -->
+</body>
+<script type="text/javascript">
+    $(function () {
+        $("#savebtn").unbind().on("click",function () {
+            $.post(ctx+"/admin/project/add.action",$("#addForm").serialize(),function (data) {
+                if(data==1){
+                    $('#myModal').modal('hide');
+                    refreshTable();
+                }else {
+                    alert("error,请联系管理员");
+                }
+            });
+        });
+    });
+</script>
+</html>

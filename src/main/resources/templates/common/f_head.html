@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<header class="topheader">
+    <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+        <div class="container topnav">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand topnav" th:href="@{/}">Home</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right myBar">
+                    <li>
+                        <a th:href="@{/archives/1}">Archives</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/tags}">Tags</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/projects/1}">Projects</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/about}">About</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/admin/}">Admin</a>
+                    </li>
+                    <li>
+                        <a href='javascript:void(0)' onclick="day_night()"><i class="fa fa-moon-o" id="day-night"></i>
+                            <span class="network-name" id="day-night-name">night</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="intro-message">
+                        <h1 th:with="username=(${info})?${info.Username}:bingo" th:text="${username}">bingo</h1>
+                        <h3>my blog about programming</h3>
+                        <hr class="intro-divider"/>
+                        <ul class="list-inline intro-social-buttons">
+                            <li>
+                                <a th:href="|mailto:${info.Email}|" class="btn btn-default btn-lg"><i class="fa fa-envelope fa-fw"></i> <span class="network-name">Email</span></a>
+                            </li>
+                            <li>
+                                <a th:href="${info.Github}" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+                            </li>
+                            <li>
+                                <a th:href="${info.Twitter}" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#content" id="blog_content"></a>
+</header>
+</html>

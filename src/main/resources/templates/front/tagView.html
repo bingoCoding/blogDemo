@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:replace="common/top_head"></head>
+</head>
+<body>
+<script th:inline="javascript">
+    function switch_theme_css() {
+        var css=document.getElementById("theme-css");
+        if(localStorage.blog_theme==undefined){
+            localStorage.blog_theme="light";
+        }
+        if(localStorage.blog_theme=="dark"){
+            css.href=darkUrl;
+        }
+    }
+    switch_theme_css();
+</script>
+<!-- top header -->
+<header th:replace="common/f_head :: header"></header>
+<!--  -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 post">
+            <div class="archive">
+                <h2 class="year" th:text="${tagName}">name</h2>
+                <div class="post-item" data-th-each="bv : ${views}">
+                    <div class="post-time" th:text="${bv.MonthDay}">
+                        monthDay
+                    </div>
+                    <a th:href="@{|/post/${bv.Vid}|}" class="post-link"><span th:text="${bv.Title}"></span></a>
+                </div>
+                <br><br>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:replace="common/footer ::footer"></footer>
+</body>
+</html>

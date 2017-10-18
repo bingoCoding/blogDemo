@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:replace="common/top_head"></head>
+</head>
+<body>
+<script th:inline="javascript">
+    function switch_theme_css() {
+        var css=document.getElementById("theme-css");
+        if(localStorage.blog_theme==undefined){
+            localStorage.blog_theme="light";
+        }
+        if(localStorage.blog_theme=="dark"){
+            css.href="/css/landing-page-dark.min.css";
+        }
+    }
+    switch_theme_css();
+</script>
+<!-- top header -->
+<header th:replace="common/f_head :: header"></header>
+<!--  -->
+<section>
+    <div class="mainwrapper">
+        <div class="mainpanel">
+            首页，内容待定
+        </div><!-- mainpanel -->
+    </div>
+</section>
+<footer th:replace="common/footer ::footer"></footer>
+</body>
+</html>

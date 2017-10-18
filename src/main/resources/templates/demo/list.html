@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<head th:replace="common/head"/>
+	<style>
+	    .popover {
+	        max-width: 900px;
+	    }
+	</style>
+</head>
+<body>
+<!-- top header -->
+<header th:replace="common/top_header :: header"></header>
+<!-- content -->
+<div class="mainwrapper">
+	<div th:replace="common/left_menu :: leftMenu"></div>
+    <div class="mainpanel">
+		<div class="col-sm-12 input-group">
+			<div style="margin-top: 10px;">
+				<div class="table-responsive">
+					<table id="dataTable"></table>
+				</div>
+			</div>
+		</div>
+    </div><!-- mainpanel -->
+</div><!-- mainwrapper -->
+</body>
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		// 面包屑
+		$('#breadcrumbs').html('demo / demo_list');
+		
+		initBootstrapTable();
+		
+		initEvent();
+	});
+    
+	function refreshTable() {
+		$('#dataTable').bootstrapTable('refresh', {
+			url: "/demo/list"
+		});
+	}
+	
+	function initBootstrapTable() {
+		
+		$('#dataTable').bootstrapTable({
+			method: 'get',
+			url: '/demo/list',
+			striped: true,
+			cache: false,
+			pagination: true,
+			sidePagination: 'server',
+			pageSize: 10,
+			pageList: [10, 30, 50],
+			queryParamsType: '',
+			queryParams: function (params) {
+				return {
+					pageSize: params.pageSize,
+					pageNum: params.pageNumber
+				}
+			},
+			responseHandler: function (data) {
+                if (data.code == 0) {
+                    return {
+                        "rows": data.data.list,
+                        "total": data.data.totalCount
+                    }
+                } else {
+                    return {
+                        "rows": [],
+                        "total": 0
+                    }
+                }
+            },
+            onLoadSuccess: function () {
+				initPop();
+			},
+			columns: [
+				{
+					title: "SQL ID",
+					field: "sqlId",
+					align: "left",
+					valign: "middle"
+				},
+				{
+					title: "耗时（毫秒）",
+					field: "uptime",
+					align: "left",
+					valign: "middle"
+				},
+				{
+					title: "执行时间",
+					align: "left",
+					valign: "middle",
+					formatter: function (value, row, index) {
+						return moment(new Date(row.date)).format('YYYY-MM-DD HH:mm:ss');
+					}
+				},
+				{
+					title: "SQL文本",
+					align: "left",
+					valign: "middle",
+					formatter: function (value, row, index) {
+						if (row.sql == '') {
+							return '-';
+						}
+						return '<a href="#" data-toggle="popover" data-param="' + row.sql + '" title="SQL文本">查看SQL</a>';
+					}
+				}
+			]
+		});
+	}
+	
+	/*<![CDATA[*/
+
+	function initEvent() {
+		initPopCloseEvent();
+	}
+	
+	/*]]>*/
+	
+</script>
+</html>
