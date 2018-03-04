@@ -67,7 +67,7 @@ public class BlogController {
      *
      * @param id    要删除的博客id
      */
-    @GetMapping("/blog/del/{id}")
+    @PostMapping("/blog/del/{id}")
     public String delete(@PathVariable int id,Model model){
         blogService.deleteBlogById(id);
         return "redirect:/admin/blog";

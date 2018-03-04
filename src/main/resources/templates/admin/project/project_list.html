@@ -188,7 +188,7 @@
 
 
 
-    function del(id) {
+    /*function del(id) {
         $("#delbtn").unbind().bind("click",function () {
             $.ajax({
                 type:'post',
@@ -202,6 +202,39 @@
             });
         });
         $('#myModal').modal('show');
+    }*/
+    function del(id) {
+        $.confirm({
+            title: '系统提示',
+            content: '确认要删除吗？',
+            type:'red',
+            icon:'glyphicon glyphicon-question-sign',
+            buttons: {
+                ok: {
+                    text: '确认',
+                    btnClass: 'btn-primary',
+                    action: function(){
+                        $.ajax({
+                            type:'post',
+                            url:ctx+'/admin/project/del/'+id,
+                            cache:false,
+                            dataType:'json',
+                            success:function(data){
+                                $('#myModal').modal('hide');
+                                refreshTable();
+                            }
+                        });
+                    }
+                },
+                cancel: {
+                    text: '取消',
+                    btnClass: 'btn-primary',
+                    action: function(){
+                        // button action.
+                    }
+                },
+            }
+        });
     }
 
     function listenModal() {

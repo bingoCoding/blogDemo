@@ -45,8 +45,7 @@ public interface ProjectMapper {
 
     @Delete({
             "delete from project",
-            "where id = #{id}",
-            "limit 1"
+            "where id = #{id}"
     })
     int delete(@Param("id") int id) throws RuntimeException;
 
@@ -55,8 +54,7 @@ public interface ProjectMapper {
             "update project",
             "set name= #{p.name},url = #{p.url},",
             "tech=#{p.tech},desp=#{p.desp}",
-            "where id = #{p.id}",
-            "limit 1"
+            "where id = #{p.id}"
     })
     int Update(@Param("p") Project project) throws RuntimeException;
 }

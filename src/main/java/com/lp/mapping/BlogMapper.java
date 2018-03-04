@@ -93,7 +93,7 @@ public interface BlogMapper {
       @Delete("delete from view_tag where vid = #{vid}")
       int deleteViewTag(@Param("vid") int vid);
 
-      @Delete("delete from blog_view where vid =#{vid} limit 1")
+      @Delete("delete from blog_view where vid =#{vid}")
       int deleteBlogView(@Param("vid") int vid);
 
       @Update({
