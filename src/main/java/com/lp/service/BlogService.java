@@ -153,18 +153,12 @@ public class BlogService implements IBlogService {
     }
     private void addViewTag(String tagStr,int vid){
         List<String> tagList= Tools.getTagList(tagStr);
-        for (String tag:tagList){
-            blogMapper.insertViewTag(tag,vid);
-        }
-
+        blogMapper.insertViewTag(tagList,vid);
     }
     private void updateViewTag(String tagStr,int vid){
         blogMapper.deleteViewTag(vid);
         List<String> tagList=Tools.getTagList(tagStr);
-        for (String tag:tagList){
-            blogMapper.insertViewTag(tag,vid);
-        }
-
+        blogMapper.insertViewTag(tagList,vid);
     }
 
 }

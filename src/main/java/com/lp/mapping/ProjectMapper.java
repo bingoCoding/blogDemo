@@ -37,7 +37,7 @@ public interface ProjectMapper {
 
     @Insert({
             "insert into project(name,url,date,tech,desp) " +
-                    "values(#{p.name},#{p.url},now(),tech=#{p.tech},desp=#{p.desp})"
+                    "values(#{p.name},#{p.url},now(),#{p.tech},#{p.desp})"
     })
     int insert(@Param("p") Project project) throws RuntimeException;
 

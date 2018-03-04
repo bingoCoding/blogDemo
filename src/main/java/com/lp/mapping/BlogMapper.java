@@ -2,7 +2,6 @@ package com.lp.mapping;
 
 import com.lp.domain.BlogView;
 import org.apache.ibatis.annotations.*;
-import org.apache.ibatis.mapping.StatementType;
 
 import java.util.List;
 
@@ -12,7 +11,7 @@ import java.util.List;
  */
 public interface BlogMapper {
       @Select({
-              "select vid,title,tags",
+              "select vid,title,tags,to_char(date,'yyyy-MM-dd HH24:mm:ss') date ",
               "from blog_view"
       })
       List<BlogView> findBlog();
@@ -81,12 +80,15 @@ public interface BlogMapper {
               "(date,title,article,tags,md) " ,
               "values(#{bv.date},#{bv.title}," ,
               "#{bv.article},#{bv.tags},#{bv.md})"})
-      @SelectKey(before=false,keyProperty="bv.vid",resultType=Integer.class,
-              statementType= StatementType.STATEMENT,statement="SELECT LAST_INSERT_ID() AS id")
+      @Options(keyProperty="bv.vid",useGeneratedKeys=true,keyColumn = "vid")
       int insertBlog(@Param("bv") BlogView blogView);
 
-      @Insert("insert ignore into view_tag (name,vid) values(#{tn},#{id})")
-      int insertViewTag(@Param("tn") String tagName, @Param("id") int vid);
+      @Insert("<script>insert into view_tag (name,vid) values" +
+              "<foreach collection=\"list\" item=\"item\" index= \"index\" separator =\",\">" +
+              "(#{item},#{id})" +
+              "</foreach>" +
+              "</script>")
+      int insertViewTag(@Param("list") List<String> tagName, @Param("id") int vid);
 
       @Delete("delete from view_tag where vid = #{vid}")
       int deleteViewTag(@Param("vid") int vid);

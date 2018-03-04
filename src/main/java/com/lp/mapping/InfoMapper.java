@@ -1,11 +1,9 @@
 package com.lp.mapping;
 
 import com.lp.domain.Info;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import org.springframework.stereotype.Repository;
 
 /**
  * mybatis的mapper
@@ -13,11 +11,11 @@ import org.springframework.stereotype.Repository;
  */
 public interface InfoMapper {
 
-    @Select({
-        "select username,email,",
-            "github,twitter,avatar",
+    @Select(
+        "select username,email,"+
+            "github,twitter,avatar "+
             "from admin limit 1"
-    })
+    )
     Info select() throws RuntimeException;
 
     @Select({
