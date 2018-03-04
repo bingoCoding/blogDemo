@@ -53,7 +53,7 @@
 <script type="text/javascript">
     $(function () {
         $("#savebtn").unbind().on("click",function () {
-            $.post("/admin/project/update.action",$("#updateForm").serialize(),function (data) {
+            $.post(ctx+"/admin/project/update.action",$("#updateForm").serialize(),function (data) {
                 if(data==1){
                     $('#myModal').modal('hide');
                     refreshTable();

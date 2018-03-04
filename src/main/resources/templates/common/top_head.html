@@ -4,6 +4,7 @@
 <title>bingo_blog</title>
 <script th:inline="javascript">
     var ctx = /*[[@{/}]]*/ '';
+    ctx=ctx.substr(0,ctx.length-1);
     /*[+
         var darkUrl = ctx+"css/landing-page-dark.min.css";
         +]*/

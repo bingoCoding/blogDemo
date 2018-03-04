@@ -80,7 +80,7 @@
 
     function refreshTable() {
         $('#dataTable').bootstrapTable('refresh', {
-            url: "/admin/project/list"
+            url: ctx+"/admin/project/list"
         });
     }
 
@@ -88,7 +88,7 @@
 
         $('#dataTable').bootstrapTable({
             method: 'post',
-            url: '/admin/project/list',
+            url: ctx+'/admin/project/list',
             striped: true,
             cache: false,
             pagination: true,
@@ -171,7 +171,7 @@
 
     function add() {
         $('#myModal').modal({
-            remote:"/admin/project/add",
+            remote:ctx+"/admin/project/add",
             show:true,
             backdrop:false
         });
@@ -180,7 +180,7 @@
 
     function update(id) {
         $('#myModal').modal({
-            remote:"/admin/project/update/"+($.trim(id)),
+            remote:ctx+"/admin/project/update/"+($.trim(id)),
             show:true,
             backdrop:false
         });
@@ -192,7 +192,7 @@
         $("#delbtn").unbind().bind("click",function () {
             $.ajax({
                 type:'post',
-                url:'/admin/project/del/'+id,
+                url:ctx+'/admin/project/del/'+id,
                 cache:false,
                 dataType:'json',
                 success:function(data){
