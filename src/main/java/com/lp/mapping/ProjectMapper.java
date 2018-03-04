@@ -2,7 +2,6 @@ package com.lp.mapping;
 
 import com.lp.domain.Project;
 import org.apache.ibatis.annotations.*;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -37,10 +36,8 @@ public interface ProjectMapper {
     int count() throws RuntimeException;
 
     @Insert({
-            "insert into project",
-            "set name= #{p.name},",
-            "url = #{p.url},date=#{p.date},",
-            "tech=#{p.tech},desp=#{p.desp}"
+            "insert into project(name,url,date,tech,desp) " +
+                    "values(#{p.name},#{p.url},now(),tech=#{p.tech},desp=#{p.desp})"
     })
     int insert(@Param("p") Project project) throws RuntimeException;
 

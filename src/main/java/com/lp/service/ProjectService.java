@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -34,8 +33,6 @@ public class ProjectService implements IProjectService {
     })
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public int addPro(Project project){
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        project.setDate(timestamp);
         return projectMapper.insert(project);
     }
 
