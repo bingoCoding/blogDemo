@@ -56,7 +56,8 @@ public class InfoService implements IInfoService {
         try {
             infoMapper.update(info);
         } catch (Exception e) {
-           LOGGER.error(e.getMessage());
+            e.printStackTrace();
+            LOGGER.error(e.getMessage());
             result=false;
         }
         return result;

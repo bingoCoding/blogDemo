@@ -21,20 +21,21 @@ public class InfoController {
     public String info(Model model){
         Info info = infoService.getInfo();
         model.addAttribute("info", info);
-        return "/admin/info";
+        return "/admin/info/info";
     }
 
     @PostMapping("/info.action")
-    public String updateInfo(@ModelAttribute("infoForm") Info info, Model model) {
+    @ResponseBody
+    public Model updateInfo(@ModelAttribute("infoForm") Info info, Model model) {
         boolean result = infoService.updateInfo(info);
-        model.addAttribute("targetUrl", "/admin/info");
+        model.addAttribute("targetUrl", "/admin/info/info");
+        model.addAttribute("info", info);
         if (result) {
             model.addAttribute("result", 1);
-            return "/admin/result";
         } else {
             model.addAttribute("result", 0);
-            return "/admin/result";
         }
+        return model;
     }
 
     @PostMapping("/pass.action")

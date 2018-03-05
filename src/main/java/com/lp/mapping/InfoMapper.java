@@ -42,7 +42,7 @@ public interface InfoMapper {
     @Update({
         "update admin set username = #{if.username},",
                 "email= #{if.email},github=#{if.github},",
-                "twitter=#{if.twitter} limit 1",
+                "twitter=#{if.twitter}",
     })
     void update(@Param("if") Info info);
 

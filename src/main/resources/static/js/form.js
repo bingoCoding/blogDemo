@@ -23,10 +23,13 @@ $(function() {
     }
     $("#info_update").bind("click",
         function() {
-            var a = document.forms[0];
-            a.action = application+"/admin/info.action",
-                a.method = "post",
-                a.submit()
+            $.post(application+"/admin/info.action",document.forms[0].serialize(),function (model) {
+                if(model.result==1){
+                    alert("更新成功");
+                }else{
+                    alert("更新失败");
+                }
+            });
         }),
         $("#update_pass").bind("click",
             function() {
