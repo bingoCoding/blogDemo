@@ -2,7 +2,6 @@
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <head th:replace="common/a_top_head"></head>
-    <script th:src="@{/js/form.js}"></script>
 </head>
 <body>
 <div id="wrapper">
@@ -84,4 +83,17 @@
     </section>
 </div>
 </body>
+<script type="text/javascript">
+    $("#info_update").bind("click",
+        function() {
+            $.post(ctx+"/admin/info.action",document.forms[0].serialize(),function (model) {
+                alert(12+":"+model);
+                if(model.result==1){
+                    alert("更新成功");
+                }else{
+                    alert("更新失败");
+                }
+            });
+        });
+</script>
 </html>

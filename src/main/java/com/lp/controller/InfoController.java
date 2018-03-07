@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin")
@@ -26,16 +28,17 @@ public class InfoController {
 
     @PostMapping("/info.action")
     @ResponseBody
-    public Model updateInfo(@ModelAttribute("infoForm") Info info, Model model) {
+    public Map<String,Object> updateInfo(@ModelAttribute("infoForm") Info info, Model model) {
+        Map<String,Object> map=new HashMap<>();
         boolean result = infoService.updateInfo(info);
         model.addAttribute("targetUrl", "/admin/info/info");
-        model.addAttribute("info", info);
+        map.put("model", model);
         if (result) {
-            model.addAttribute("result", 1);
+            map.put("result", 1);
         } else {
-            model.addAttribute("result", 0);
+            map.put("result", 0);
         }
-        return model;
+        return map;
     }
 
     @PostMapping("/pass.action")

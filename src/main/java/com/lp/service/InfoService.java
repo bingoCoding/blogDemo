@@ -72,6 +72,7 @@ public class InfoService implements IInfoService {
                infoMapper.updataPass(newPass);
                result=MODIFYPASSSUC;
            } catch (Exception e) {
+               e.printStackTrace();
                LOGGER.error(e.getMessage());
                result=SySTEMERROE;
            }

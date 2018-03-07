@@ -85,8 +85,14 @@ public class BlogService implements IBlogService {
 
     @Override
     @Cacheable(value = "archives",key = "1")
-    public List<Archive> getArchive(){
-        return bv2Ar(blogMapper.selectArc());
+    public List<Archive> getArchive(List<BlogView> list){
+        return bv2Ar(list);
+    }
+
+    @Override
+    @Cacheable(value = "archives",key = "1")
+    public List<BlogView> selectArc(){
+        return blogMapper.selectArc();
     }
 
     @Override

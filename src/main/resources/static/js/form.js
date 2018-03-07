@@ -24,6 +24,7 @@ $(function() {
     $("#info_update").bind("click",
         function() {
             $.post(application+"/admin/info.action",document.forms[0].serialize(),function (model) {
+                alert(12);
                 if(model.result==1){
                     alert("更新成功");
                 }else{
@@ -36,7 +37,7 @@ $(function() {
                 var d, a = document.newPassForm.old_pass_bef.value,
                     b = document.newPassForm.new_pass_one.value,
                     c = document.newPassForm.new_pass_two.value;
-                b != c ? alert("Two passwords are not consistent!") : (d = document.forms[1], d.action = "/admin/pass.action", d.method = "post", document.newPassForm.old_pass.value = md5(a), document.newPassForm.new_pass.value = md5(b), d.submit())
+                b != c ? alert("Two passwords are not consistent!") : (d = document.forms[1], d.action = application+"/admin/pass.action", d.method = "post", document.newPassForm.old_pass.value = md5(a), document.newPassForm.new_pass.value = md5(b), d.submit())
             }),
         $("#login-admin").bind("click",
             function() {

@@ -55,7 +55,8 @@ public class FontEndCtrl {
     @RequestMapping("/archives/{pageNo}")
     public String archives(@PathVariable int pageNo,Model model){
         PageHelper.startPage(pageNo,10);
-        List<Archive> archiveList=blogService.getArchive();
+        List<BlogView> views=blogService.selectArc();
+        List<Archive> archiveList = blogService.getArchive(views);
         PageInfo<Archive> pageInfo=new PageInfo<Archive>(archiveList,5);
         model.addAttribute("pageInfo",pageInfo);
         return "front/archives";

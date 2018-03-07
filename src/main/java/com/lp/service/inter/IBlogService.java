@@ -18,7 +18,8 @@ public interface IBlogService {
     void updateBlog(BlogView blogView);//后台管理更新博客操作
     void deleteBlogById(int vid);//后台管理删除博客操作
     List<String> getTagList();//前端标签页面获取标签列表
-    List<Archive> getArchive();//前端archives页面获取archive
+    List<Archive> getArchive(List<BlogView> list);//前端archives页面获取archive
+    List<BlogView> selectArc();
     int getArchiveNum();//前端显示获取archive页面总数
     BlogView getBlog(int vid);//前端博客显示界面获取博客html文本，对应post/id
     BlogView getPrevBlog(int vid);//前端获取上一篇博客的id和title
