@@ -9,6 +9,9 @@ import com.lp.domain.Info;
 import com.lp.service.inter.IBlogService;
 import com.lp.service.inter.IInfoService;
 import com.lp.service.inter.IProjectService;
+import org.springframework.beans.BeanUtils;
+import org.springframework.cglib.beans.BeanCopier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -56,9 +59,13 @@ public class FontEndCtrl {
     public String archives(@PathVariable int pageNo,Model model){
         PageHelper.startPage(pageNo,10);
         List<BlogView> views=blogService.selectArc();
+        PageInfo<BlogView> pageInfo=new PageInfo<BlogView>(views,5);
+
         List<Archive> archiveList = blogService.getArchive(views);
-        PageInfo<Archive> pageInfo=new PageInfo<Archive>(archiveList,5);
-        model.addAttribute("pageInfo",pageInfo);
+        PageInfo<Archive> pageInfo2=new PageInfo<Archive>(archiveList,5);
+        BeanUtils.copyProperties(pageInfo,pageInfo2);
+        pageInfo2.setList(archiveList);
+        model.addAttribute("pageInfo",pageInfo2);
         return "front/archives";
     }
 
