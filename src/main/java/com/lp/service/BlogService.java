@@ -49,9 +49,12 @@ public class BlogService implements IBlogService {
         addViewTag(blogView.getTags(),blogView.getVid());
     }
     @Override
-    public PageInfo<BlogView> getBlogPage(Integer pageNum, int pageSize){
+    public PageInfo<BlogView> getBlogPage(Integer pageNum, int pageSize, String startDate, String endDate, String title){
+        if(title!=null&&title.trim().length()>0){
+            title="%"+title.trim()+"%";
+        }
         PageHelper.startPage(pageNum,pageSize);
-        List<BlogView> list = blogMapper.findBlog();
+        List<BlogView> list = blogMapper.findBlog(startDate,endDate,title);
         return new PageInfo<BlogView>(list);
     }
 
@@ -73,8 +76,8 @@ public class BlogService implements IBlogService {
             @CacheEvict(value = "archivePageNum",key = "1")
     })
     @Transactional(isolation = Isolation.READ_COMMITTED)
-    public void deleteBlogById(int vid) {
-        blogMapper.deleteBlogView(vid);
+    public int deleteBlogById(int vid) {
+        return blogMapper.deleteBlogView(vid);
     }
 
     @Override

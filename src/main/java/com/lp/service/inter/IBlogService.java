@@ -14,9 +14,9 @@ import java.util.List;
 public interface IBlogService {
     void addBlog(BlogView blogView);//添加博客
     BlogView adminGetBlog(int vid);//后台管理中更新博客时获取博客的markdown文本，title，tags
-    PageInfo<BlogView> getBlogPage(Integer pageNum, int pageSize);//用于后台管理中显示博客列表
+    PageInfo<BlogView> getBlogPage(Integer pageNum, int pageSize, String startDate, String endDate, String title);//用于后台管理中显示博客列表
     void updateBlog(BlogView blogView);//后台管理更新博客操作
-    void deleteBlogById(int vid);//后台管理删除博客操作
+    int deleteBlogById(int vid);//后台管理删除博客操作
     List<String> getTagList();//前端标签页面获取标签列表
     List<Archive> getArchive(List<BlogView> list);//前端archives页面获取archive
     List<BlogView> selectArc();

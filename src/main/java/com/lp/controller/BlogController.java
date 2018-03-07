@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 /**
  * 后台管理中博客管理页面
@@ -29,8 +30,12 @@ public class BlogController {
 
     @PostMapping("/blog/list")
     @ResponseBody
-    public PageInfo<BlogView> list(@RequestParam(defaultValue = "1")Integer pageNum, @RequestParam(defaultValue = "0")Integer pageSize){
-        return blogService.getBlogPage(pageNum,pageSize);
+    public PageInfo<BlogView> list(@RequestParam(defaultValue = "1")Integer pageNum,
+                                   @RequestParam(defaultValue = "10")Integer pageSize,
+                                   @RequestParam("startDate") String startDate,@RequestParam("endDate") String endDate,
+                                   @RequestParam("title") String title){
+        System.out.println(startDate+"::"+endDate);
+        return blogService.getBlogPage(pageNum,pageSize,startDate,endDate,title);
     }
 
     /**
@@ -68,9 +73,10 @@ public class BlogController {
      * @param id    要删除的博客id
      */
     @PostMapping("/blog/del/{id}")
+    @ResponseBody
     public String delete(@PathVariable int id,Model model){
-        blogService.deleteBlogById(id);
-        return "redirect:/admin/blog";
+        int res=blogService.deleteBlogById(id);
+        return "{\"res\":"+res+"}";
     }
 
     /**

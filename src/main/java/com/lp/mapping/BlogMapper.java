@@ -3,6 +3,7 @@ package com.lp.mapping;
 import com.lp.domain.BlogView;
 import org.apache.ibatis.annotations.*;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -10,11 +11,14 @@ import java.util.List;
  * 映射所有博客操作的sql语句
  */
 public interface BlogMapper {
-      @Select({
-              "select vid,title,tags,to_char(date,'yyyy-MM-dd HH24:mm:ss') date ",
-              "from blog_view"
-      })
-      List<BlogView> findBlog();
+      @Select("<script>select vid,title,tags,to_char(date,'yyyy-MM-dd HH24:mm:ss') date "+
+              "from blog_view where to_char(date,'yyyy-MM-dd')>=#{startDate} and " +
+              "to_char(date,'yyyy-MM-dd') <![CDATA[<=]]> #{endDate}" +
+              "<if test=\"title !=null and title !='' \">" +
+              " and title like #{title}" +
+              "</if>" +
+              " order by date desc </script>")
+      List<BlogView> findBlog(@Param("startDate") String startDate, @Param("endDate") String endDate, @Param("title") String title);
 
       @Select("select count(*) from blog_view")
       int selectBlogNum();

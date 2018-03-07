@@ -22,12 +22,12 @@ $(document).ready(function() {
 	      return false;
 	});
 	
-	var start = new Date();
-	start.setDate(start.getDate() -6);
-	var end = new Date();
+	var start_date = new Date();
+	start_date.setDate(start_date.getDate() -6);
+	var end_date = new Date();
 	$('#date-range').daterangepicker({
-		startDate: $.format.date(start,'yyyy-MM-dd'),
-		endDate: $.format.date(end,'yyyy-MM-dd'),
+		startDate: $.format.date(start_date,'yyyy-MM-dd'),
+		endDate: $.format.date(end_date,'yyyy-MM-dd'),
 		ranges:{
 			'最近一个月': [moment().subtract(1, 'month'), moment()],
 			'最近一年': [moment().subtract(1, 'year').add(1,'day'), moment()]
@@ -48,8 +48,8 @@ $(document).ready(function() {
 	});
 	
 	$('#date-single').daterangepicker({
-		date: $.format.date(end,'yyyy-MM-dd'),
-		endDate: $.format.date(end,'yyyy-MM-dd'),
+		date: $.format.date(end_date,'yyyy-MM-dd'),
+		endDate: $.format.date(end_date,'yyyy-MM-dd'),
 		singleDatePicker: true,
 		//format: 'yyyy-mm-dd',
 		locale : {
