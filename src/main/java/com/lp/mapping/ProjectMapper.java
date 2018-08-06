@@ -14,7 +14,7 @@ public interface ProjectMapper {
     @Select({
             "select name,url,tech,desp,date",
             "from project ",
-            "limit #{st},5"
+            "limit 5 offset #{st}"
     })
     List<Project> select(@Param("st") int start) throws RuntimeException;
 
